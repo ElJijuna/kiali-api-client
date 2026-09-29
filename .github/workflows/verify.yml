@@ -1,0 +1,61 @@
+name: Verify package
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Check and pack
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint, format, typecheck, test and build
+        run: npm run check
+
+      - name: Coverage
+        run: npm run test:coverage -- --silent
+
+      - name: Package smoke test (CJS, ESM, TypeScript)
+        run: npm run test:package
+
+      - name: Pack
+        run: mkdir -p package-artifact && npm pack --ignore-scripts --pack-destination package-artifact
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verified-package
+          path: package-artifact/*.tgz
+
+  runtime:
+    name: Node.js ${{ matrix.node }}
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: verified-package
+          path: package-artifact
+
+      - name: Package smoke test
+        run: node scripts/test-package.mjs package-artifact/*.tgz

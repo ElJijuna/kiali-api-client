@@ -1,0 +1,8 @@
+import { createEslintConfig } from 'super-configs/eslint';
+
+export default createEslintConfig({
+  runtime: 'node',
+  language: 'ts',
+  testFramework: 'jest',
+  ignores: ['dist/**', 'coverage/**', 'docs/**', 'node_modules/**'],
+});

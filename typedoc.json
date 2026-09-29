@@ -1,0 +1,13 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "extends": ["super-configs/typedoc"],
+    "entryPoints": ["src/index.ts"],
+    "out": "docs",
+    "name": "Kiali API Client",
+    "readme": "README.md",
+    "navigationLinks": {
+        "GitHub": "https://github.com/ElJijuna/kiali-api-client",
+        "npm": "https://www.npmjs.com/package/kiali-api-client"
+    },
+    "highlightLanguages": ["bash", "ini", "json", "typescript", "javascript"]
+}

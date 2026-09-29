@@ -1,0 +1,17 @@
+{
+    "extends": ["super-configs/tsconfig/base", "super-configs/tsconfig/strict"],
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "lib": ["ES2022", "DOM"],
+        "types": [],
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "rootDir": "src",
+        "outDir": "dist"
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "dist", "**/*.test.ts"]
+}

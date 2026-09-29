@@ -1,0 +1,100 @@
+{
+    "name": "kiali-api-client",
+    "version": "0.0.0-development",
+    "type": "module",
+    "description": "TypeScript client for the Kiali REST API (Istio service mesh observability)",
+    "main": "dist/index.cjs",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.js"
+            },
+            "require": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/index.cjs"
+            }
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "sideEffects": false,
+    "scripts": {
+        "build": "tsup",
+        "check": "npm run lint && npm run format:check && npm run typecheck && npm test && npm run build",
+        "commitlint": "commitlint --from HEAD~1 --to HEAD --verbose",
+        "docs": "typedoc",
+        "format": "biome format --write .",
+        "format:check": "biome format .",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "release": "semantic-release",
+        "test": "jest",
+        "test:coverage": "jest --coverage",
+        "test:client": "npm run build && node test-client/test.js",
+        "test:package": "node scripts/test-package.mjs",
+        "typecheck": "tsc --noEmit -p tsconfig.test.json"
+    },
+    "keywords": [
+        "kiali",
+        "istio",
+        "service-mesh",
+        "kubernetes",
+        "observability",
+        "api-client",
+        "rest",
+        "typescript"
+    ],
+    "engines": {
+        "node": ">=20"
+    },
+    "license": "MIT",
+    "author": "pilmee <pilmee@gmail.com> (https://github.com/ElJijuna)",
+    "homepage": "https://eljijuna.github.io/kiali-api-client",
+    "bugs": {
+        "url": "https://github.com/ElJijuna/kiali-api-client/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ElJijuna/kiali-api-client.git"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.5.14",
+        "@commitlint/cli": "^21.2.3",
+        "@commitlint/config-conventional": "^21.2.3",
+        "@semantic-release/changelog": "^7.0.0",
+        "@semantic-release/git": "^11.0.1",
+        "@types/jest": "^30.0.0",
+        "@types/node": "^26.6.3",
+        "@typescript/native": "npm:typescript@^7.0.2",
+        "conventional-changelog-conventionalcommits": "^10.4.0",
+        "eslint": "^10.11.0",
+        "jest": "^30.5.2",
+        "semantic-release": "^25.0.9",
+        "super-configs": "^1.26.0",
+        "ts-jest": "^29.4.14",
+        "tsup": "^8.5.1",
+        "typedoc": "^0.28.20",
+        "typescript": "npm:@typescript/typescript6@^6.0.2"
+    },
+    "overrides": {
+        "eslint-plugin-expo": {
+            "eslint": "$eslint"
+        },
+        "eslint-plugin-import": {
+            "eslint": "$eslint"
+        },
+        "eslint-plugin-jsx-a11y": {
+            "eslint": "$eslint"
+        },
+        "eslint-plugin-react": {
+            "eslint": "$eslint"
+        }
+    }
+}
